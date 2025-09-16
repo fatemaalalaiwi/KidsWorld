@@ -1,0 +1,24 @@
+{% extends 'base.html'%} 
+{% block content %}
+<h1>Game Details</h1>
+<div class="card">
+  <div class="card-content">
+    <div class="right">
+      {% load static %}
+      <img
+        src="{% static game.game_image|cut:'main_app/static/' %}"
+        width="150px"
+        height="150px"
+      />
+    </div>
+    <span class="card-title"> {{game.game_name}} </span>
+    <p>Description: {{game.description}}</p>
+    <p>Price: {{game.game_price}} BD</p>
+    
+    <div class="card-section">
+      <a href="{% url 'games_update' game.id %}">Edit</a>
+      <a href="{% url 'games_delete' game.id %}">Delete</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
