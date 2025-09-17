@@ -40,8 +40,7 @@ def about(request):
 
 @login_required
 def games_index(request):
-  # SELECT * FROM 'main_app_cat';
-  #cats = Cat.objects.all()
+   
    game = games.objects.filter(user=request.user)
    return render(request, 'games/index.html', {'game': game})
 

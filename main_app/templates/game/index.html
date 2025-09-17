@@ -2,20 +2,16 @@
 {% block content %}
   <h1>Games List</h1>
   
-  {% for cat in cats %}
+  {% for ga in games %}
     <div class="card">
-      <a href="{% url 'detail' cat.id %}">
+      <a href="{% url 'detail' games.id %}">
         <div class="card-content">
           <div class="flex-container">
               <div>
-                <span class="card-title">{{ cat.name }}</span>
-                <p>Breed: {{ cat.breed }}</p>
-                <p>Description: {{ cat.description }}</p>
-                {% if cat.age > 0 %}
-                  <p>Age: {{ cat.age }}</p>
-                {% else %}
-                  <p>Age: Kitten</p>
-                {% endif %}
+                <span class="card-title">{{ games.game_name }}</span>
+                <p>Description: {{ games.game_descriptione }}</p>
+                <p> {{ games.game_image }}</p>
+               
               </div>
               <div>
                   {% load static %}
