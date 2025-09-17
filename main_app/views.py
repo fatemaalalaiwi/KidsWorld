@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import games, kids , kids_games
+from .models import games, kids , kids_games ,cards
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 # from .forms import FeedingForm

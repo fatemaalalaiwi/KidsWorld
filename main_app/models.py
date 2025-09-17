@@ -30,7 +30,7 @@ class kids(models.Model):
     parent_phone = models.CharField(max_length=20)
     fk_card_id = models.ForeignKey( cards , on_delete=models.CASCADE)
     kid_image = models.ImageField(upload_to='main_app/static/uploads/', default="")
-
+    user = models.ForeignKey(User , on_delete=models.CASCADE)
 
     def __str__(self):
         return self.kid_name
