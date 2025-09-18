@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import games, kids , kids_games ,cards
+from .models import games, kids , kids_games , cards
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 # from .forms import FeedingForm
@@ -29,7 +29,6 @@ class GameUpdate(LoginRequiredMixin, UpdateView):
 class GameDelete(LoginRequiredMixin, DeleteView):
   model = games
   success_url = '/games/'
-
 
 # Create your views here.
 def home(request):
@@ -78,7 +77,7 @@ class KidDetail(LoginRequiredMixin, DetailView):
 
 class KidCreate(LoginRequiredMixin, CreateView):
   model = kids
-  fields = '__all__'
+  fields = ['kid_name', 'parent_phone','kid_image', 'credit' ]
   success_url = '/kids/'
 
 

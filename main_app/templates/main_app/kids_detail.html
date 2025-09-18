@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 <h1>Kid Details</h1>
 <div class="row">
   <div class="col s6 col-offset-3">
@@ -7,9 +8,8 @@
       <div class="card-content">
         <span class="card-title">{{ kids.kid_name }}</span>
         <p>Parent name: {{ kids.parent_name }}</p>
-        <!-- <p>Kid image: {{ kids.kid_image }}</p> -->
-        {% load static %}
-                  <img src="{% static kid.kid_image|cut:'main_app/static/' %}" width="100px" height="100px" alt="kid Image">
+    
+                  <img src="{% static kids.kid_image|cut:'main_app/static/' %}" width="100px" height="100px" alt="kid Image">
         </div>
     </div>
   </a>
