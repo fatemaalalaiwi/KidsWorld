@@ -14,7 +14,7 @@ type_of_card =(
 class cards(models.Model) :   
     card_type = models.CharField(max_length=1 , choices=type_of_card, default=type_of_card[0][0])    
     card_duration_time = models.FloatField(default=10)
-    credit = models.FloatField(default=0.0)
+    # credit = models.FloatField(default=0.0)
 
     def __str__(self):
         return f'{self.get_card_type_display()} ({self.card_duration_time} min)'
@@ -31,6 +31,7 @@ class kids(models.Model):
     fk_card_id = models.ForeignKey( cards , on_delete=models.CASCADE)
     kid_image = models.ImageField(upload_to='main_app/static/uploads/', default="")
     user = models.ForeignKey(User , on_delete=models.CASCADE)
+    credit = models.FloatField(default=0.0)
 
     def __str__(self):
         return self.kid_name
@@ -65,7 +66,7 @@ class kids_games(models.Model):
     fk_game_id = models.ForeignKey(games, on_delete=models.CASCADE)
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField()
-    fk_employee_id = models.ForeignKey(employees, on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(User , on_delete=models.SET_NULL, null=True, blank=True)
     status = models.IntegerField()
 
     def save(self, *args, **kwargs):

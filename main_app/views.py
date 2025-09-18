@@ -41,12 +41,16 @@ def about(request):
 @login_required
 def games_index(request):
    
-   game = games.objects.filter(user=request.user)
+   game = games.objects.all()
    return render(request, 'games/index.html', {'game': game})
 
 @login_required
 def games_detail(request, game_id):
   game = games.objects.get(id=game_id)
+  # kids_game ()
+  kid_list = kids_games.objects.filter(fk_game_id=game.id, )
+  return render(request, 'games/detail.html', {'game': game})
+
   #Get the toys, cat dosent have
 #   toys_cat_doesnt_have = Toy.objects.exclude(id__in = cat.toys.all().values_list('id'))
 #   feeding_form = FeedingForm()
@@ -75,6 +79,8 @@ class KidDetail(LoginRequiredMixin, DetailView):
 class KidCreate(LoginRequiredMixin, CreateView):
   model = kids
   fields = '__all__'
+  success_url = '/kids/'
+
 
 class KidUpdate(LoginRequiredMixin, UpdateView):
   model = kids

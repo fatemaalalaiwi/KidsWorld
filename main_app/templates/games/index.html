@@ -2,20 +2,20 @@
 {% block content %}
   <h1>Games List</h1>
   
-  {% for ga in games %}
+  {% for ga in game %}
     <div class="card">
-      <a href="{% url 'detail' games.id %}">
+      <a href="{% url 'detail' ga.id %}">
         <div class="card-content">
           <div class="flex-container">
               <div>
-                <span class="card-title">{{ games.game_name }}</span>
-                <p>Description: {{ games.game_descriptione }}</p>
-                <p> {{ games.game_image }}</p>
+                <span class="card-title">{{ ga.game_name }}</span>
+                <p>Description: {{ ga.description }}</p>
+                <p> {{ ga.game_price }}</p>
                
               </div>
               <div>
                   {% load static %}
-                  <img src="{% static cat.image|cut:'main_app/static/' %}" width="100px" height="100px" alt="Cat Image">
+                  <img src="{% static ga.game_image|cut:'main_app/static/' %}" width="100px" height="100px" alt="Cat Image">
               </div>
         </div>
         </div>

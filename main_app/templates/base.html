@@ -20,8 +20,8 @@
         <ul class="right">
           <li><a href="{% url 'about' %}">About</a></li>
             {% if user.is_authenticated %}
-              <li><a href="{% url 'kids_create' %}">Add a Kid</a></li>
-              <li><a href="{% url 'kids_index' %}">View All Kids</a></li>
+              <li><a href="{% url 'kid_create' %}">Add a Kid</a></li>
+              <li><a href="{% url 'kid_index' %}">View All Kids</a></li>
               <li><a href="{% url 'games_create' %}">Add a Game</a></li>
               <li><a href="{% url 'index' %}">View All Games</a></li>
               <li><form method="post" action="{% url 'logout' %}">
