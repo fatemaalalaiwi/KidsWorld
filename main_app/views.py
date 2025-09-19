@@ -73,7 +73,15 @@ class KidList(LoginRequiredMixin ,ListView):
   model = kids
 
 class KidDetail(LoginRequiredMixin, DetailView):
-  model = kids
+    model = kids
+    context_object_name = 'kid'
+    template_name = 'main_app/kids_detail.html'  # تأكدي من المسار الصحيح
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # جلب الألعاب المرتبطة بالطفل
+        context['kid_games'] = kids_games.objects.filter(fk_kid_id=self.object.id)
+        return context
 
 class KidCreate(LoginRequiredMixin, CreateView):
   model = kids
@@ -84,6 +92,8 @@ class KidCreate(LoginRequiredMixin, CreateView):
 class KidUpdate(LoginRequiredMixin, UpdateView):
   model = kids
   fields = ['kid_name', 'parent_phone']
+
+  
 
 class KidDelete(LoginRequiredMixin, DeleteView):
   model = kids

@@ -1,22 +1,412 @@
+/* ------------------- Body & Background ------------------- */
 body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
-  
-  main {
-    flex: 1 0 auto;
-  }
-  
-  footer.page-footer {
-    padding-top: 0;
-    text-align: right;
+  font-family: 'Comic Sans MS', 'Poppins', sans-serif;
+  background-color: #fff8f0;
+  color: #5d3a99;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
 
+  background-image: radial-gradient(#ffe4e1 1px, transparent 1px),
+                    radial-gradient(#d1c4e9 1px, transparent 1px);
+  background-position: 0 0, 20px 20px;
+  background-size: 40px 40px;
+}
 
-  }
-  
- .flex-container {
+/* ------------------- Navbar ------------------- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(90deg, #f0b3ff, #fffeb7);
+  padding: 8px 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 100;
+  border-radius: 0 0 15px 15px;
 }
- 
+
+.navbar .brand-logo {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #5d3a99;
+  text-decoration: none;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.navbar ul li a {
+  color: #5d3a99;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.navbar ul li a:hover {
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* ------------------- Main container ------------------- */
+.main-container {
+  margin-top: 70px; /* مساحة تحت navbar */
+  padding: 20px;
+}
+
+/* ------------------- Balloons ------------------- */
+.balloon {
+  position: absolute;
+  font-size: 40px;
+  animation: float 6s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+.balloon1 { left: 10%; top: 20%; color: #ffb3ba; animation-delay: 0s; }
+.balloon2 { right: 15%; top: 40%; color: #baffc9; animation-delay: 2s; }
+
+@keyframes float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-25px); }
+  100% { transform: translateY(0); }
+}
+
+/* ------------------- Footer ------------------- */
+.footer {
+  background: linear-gradient(90deg, #f0b3ff, #fffeb7);
+  text-align: center;
+  padding: 15px 0;
+  color: #5d3a99;
+  font-weight: bold;
+  border-radius: 15px 15px 0 0;
+  margin-top: auto;
+}
+
+/* ------------------- Forms Centering ------------------- */
+form {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff3e0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+form input,
+form select,
+form textarea,
+form button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* ------------------- Buttons ------------------- */
+button, .btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(90deg, #f0b3ff, #fffeb7);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover, .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+/* ------------------- Cards ------------------- */
+.card {
+  background-color: #fff3e0;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* ------------------- Responsive ------------------- */
+@media (max-width: 720px) {
+  .navbar ul li a {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+
+  .main-container {
+    margin-top: 80px;
+    padding: 10px;
+  }
+
+  form {
+    max-width: 90%;
+  }
+}
+/* ------------------- Cards Container ------------------- */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* ------------------- Game Card ------------------- */
+.game-card {
+  background-color: #fff3e0; /* خلفية ناعمة */
+  border-radius: 20px;        /* حواف دائرية */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* ظل خفيف */
+  width: 300px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+/* ------------------- Card Content ------------------- */
+.card-content {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #5d3a99;
+}
+
+.card-text p {
+  margin: 5px 0;
+  color: #5d3a99;
+}
+
+/* ------------------- Flex Container ------------------- */
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ------------------- Card Image ------------------- */
+.card-image img {
+  border-radius: 10px;
+  object-fit: cover;
+}
+/* ------------------- Detail Card ------------------- */
+.detail-card {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 25px;
+  background-color: #fff3e0; /* خلفية ناعمة */
+  border-radius: 20px;       /* حواف دائرية */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* ظل خفيف */
+  position: relative;
+}
+
+/* عنوان الكارد */
+.detail-card h2 {
+  margin-bottom: 20px;
+}
+
+/* Flex container */
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.card-text p {
+  margin: 5px 0;
+  color: #5d3a99;
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #5d3a99;
+}
+
+/* صورة اللعبة */
+.card-image img {
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+/* أزرار Edit / Delete */
+.card-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-buttons .btn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  color: #5d3a99;
+  background: linear-gradient(90deg, #e8f6e1, #a9f7ba);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-buttons .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+/* زر الحذف مختلف اللون */
+.card-buttons .delete-btn {
+  background: linear-gradient(90deg, #ffbaba, #ff7b7b);
+  color: white;
+}
+/* ------------------- Delete / Cancel Buttons ------------------- */
+.delete-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.delete-buttons .delete-btn {
+  background: linear-gradient(90deg, #ff9e5c, #ff7b3a); /* برتقالي */
+  color: white;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.delete-buttons .delete-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.delete-buttons .cancel-btn {
+  background: linear-gradient(90deg, #7bff9e, #3aff7b); /* أخضر */
+  color: white;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.delete-buttons .cancel-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+
+/* Kid List - Card Style */
+.page-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #5d3a99;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  background: #fff3e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  text-align: center;
+  width: 220px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-top: 10px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #5d3a99;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Detail Page - Centered Card */
+.detail-card {
+  max-width: 400px;
+  margin: 0 auto 40px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.detail-card .detail-img {
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.detail-card .card-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #5d3a99;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.detail-card .card-section {
+  margin-top: 20px;
+}
+
+.detail-card .btn {
+  margin: 0 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.detail-card .btn.green {
+  background-color: #4caf50;
+}
+
+.detail-card .btn.orange {
+  background-color: #ff9800;
+}

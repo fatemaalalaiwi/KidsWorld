@@ -1,18 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Kid List</h1>
-{% for kid in kids_list %}
-  <a href="{% url 'kid_detail' kid.id %}">
-    <div class="card">
+<h1 class="page-title">Kid List</h1>
+
+<div class="card-container">
+  {% for kid in kids_list %}
+    <a href="{% url 'kid_detail' kid.id %}" class="card-link">
+      <div class="card">
         <div class="card-content">
-            <span class="card-title">{{ kid.kid_name }}</span>
-            <p>Parent number: {{ kid.parent_phone }}</p>
-           
-             {% load static %}
-                  <img src="{% static kid.kid_image|cut:'main_app/static/' %}" width="100px" height="100px" alt="kid Image">
+          <span class="card-title">{{ kid.kid_name }}</span>
+          <p>Parent number: {{ kid.parent_phone }}</p>
+          {% load static %}
+          <img src="{% static kid.kid_image|cut:'main_app/static/' %}" alt="Kid Image">
         </div>
-    </div>
-  </a>
-{% endfor %}
+      </div>
+    </a>
+  {% empty %}
+    <p>No kids found.</p>
+  {% endfor %}
+</div>
+
 {% endblock %}

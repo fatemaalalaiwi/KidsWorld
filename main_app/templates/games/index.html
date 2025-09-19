@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h1>Games List</h1>
-  
-  {% for ga in game %}
-    <div class="card">
-      <a href="{% url 'detail' ga.id %}">
-        <div class="card-content">
-          <div class="flex-container">
-              <div>
+  <h1 style="text-align:center; color:#5d3a99;">Games List</h1>
+
+  <div class="cards-container">
+    {% for ga in game %}
+      <div class="game-card">
+        <a href="{% url 'detail' ga.id %}">
+          <div class="card-content">
+            <div class="flex-container">
+              <div class="card-text">
                 <span class="card-title">{{ ga.game_name }}</span>
                 <p>Description: {{ ga.description }}</p>
-                <p> {{ ga.game_price }}</p>
-               
+                <p>Price: {{ ga.game_price }}</p>
               </div>
-              <div>
-                  {% load static %}
-                  <img src="{% static ga.game_image|cut:'main_app/static/' %}" width="100px" height="100px" alt="Cat Image">
+              <div class="card-image">
+                {% load static %}
+                <img src="{% static ga.game_image|cut:'main_app/static/' %}" width="100px" height="100px" alt="Game Image">
               </div>
-        </div>
-        </div>
-      </a>
+            </div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
   </div>
-  {% endfor %}
 {% endblock %}

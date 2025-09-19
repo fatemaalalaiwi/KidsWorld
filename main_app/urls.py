@@ -22,8 +22,8 @@ urlpatterns = [
     path('kids/<int:pk>/update/', views.KidUpdate.as_view(), name='kid_update'),
     path('kids/<int:pk>/delete/', views.KidDelete.as_view(), name='kid_delete'),
 
-    path('kids/<int:kid_id>/assoc_kid/<int:game_id>/' , views.assoc_kid, name='assoc_kid'),
-    path('kids/<int:kid_id>/unassoc_kid/<int:game_id>/' , views.unassoc_kid, name='unassoc_kid'),
+    path('kids/<int:kids_id>/assoc_kid/<int:game_id>/' , views.assoc_kid, name='assoc_kid'),
+    path('kids/<int:kids_id>/unassoc_kid/<int:game_id>/' , views.unassoc_kid, name='unassoc_kid'),
 
     path('accounts/signup/' , views.signup , name='signup')
    

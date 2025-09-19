@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h1>Delete Game</h1>
-  <h4>Are you sure you want to delete <span class="teal-text">{{ object.name }}</span>?</h4>
+<div class="form-card">
+  <h2 style="text-align:center; color:#5d3a99;">Delete Game</h2>
+  <h4 style="text-align:center;">
+    Are you sure you want to delete <span class="teal-text">{{ object.name }}</span>?
+  </h4>
   <form action="" method="POST">
     {% csrf_token %}
-    <input type="submit" value="Yes - Delete!" class="btn">
-    <a href="{% url 'detail' games.id %}" class="btn red">Cancel</a>
+    <div class="delete-buttons">
+      <input type="submit" value="Yes - Delete!" class="btn delete-btn">
+      <a href="{% url 'detail' games.id %}" class="btn cancel-btn">Cancel</a>
+    </div>
   </form>
+</div>
 {% endblock %}
-
-
-
-
-
-

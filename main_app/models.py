@@ -28,7 +28,7 @@ class kids(models.Model):
     kid_name = models.CharField(max_length=100)             
     parent_name = models.CharField(max_length=100)      
     parent_phone = models.CharField(max_length=20)
-    
+
     fk_card_id = models.ForeignKey(cards, on_delete=models.SET_NULL, null=True, blank=True)
     kid_image = models.ImageField(upload_to='main_app/static/uploads/', default="")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -40,7 +40,7 @@ class kids(models.Model):
     
 
     def get_absolute_url(self):
-        return reverse('kid_detail', kwargs={'kids_id': self.id})
+        return reverse('kid_detail', kwargs={'pk': self.id})
 
 
 # cat
@@ -75,3 +75,4 @@ class kids_games(models.Model):
         if not self.end_time:
             self.end_time = self.start_time + timedelta(minutes=self.kid.card.card_duration_time)
         super().save(*args, **kwargs)    
+

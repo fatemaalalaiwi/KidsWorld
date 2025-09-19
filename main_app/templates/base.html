@@ -4,44 +4,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>kids World</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-  
+  <title>Kids World</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
-  <header class="navbar-fixed">
-    <nav>
-      <div class="nav-wrapper">
-        <ul>
-          <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;&nbsp;Kids World</a></li>
-        </ul>
-        <ul class="right">
-          <li><a href="{% url 'about' %}">About</a></li>
-            {% if user.is_authenticated %}
-              <li><a href="{% url 'kid_create' %}">Add a Kid</a></li>
-              <li><a href="{% url 'kid_index' %}">View All Kids</a></li>
-              <li><a href="{% url 'games_create' %}">Add a Game</a></li>
-              <li><a href="{% url 'index' %}">View All Games</a></li>
-              <li><form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit">Log Out</button>
-              </form></li>
-          {% else %}
-            <li><a href="{% url 'signup' %}">Sign Up</a></li>
-             <li><a href="{% url 'login' %}">Log In</a></li>
-          {% endif %}
-        </ul>
-      </div>
-    </nav>
+  <!-- Navbar -->
+  <header class="navbar">
+    <a href="{% url 'home' %}" class="brand-logo">Kids World</a>
+    <ul>
+      <li><a href="{% url 'about' %}">About</a></li>
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'kid_create' %}">Add a Kid</a></li>
+        <li><a href="{% url 'kid_index' %}">View All Kids</a></li>
+        <li><a href="{% url 'games_create' %}">Add a Game</a></li>
+        <li><a href="{% url 'index' %}">View All Games</a></li>
+        <li>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Log Out</button>
+          </form>
+        </li>
+      {% else %}
+        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+        <li><a href="{% url 'login' %}">Log In</a></li>
+      {% endif %}
+    </ul>
   </header>
-  <main class="container">
+
+  <!-- Main content -->
+  <main class="main-container">
     {% block content %}
     {% endblock %}
   </main>
-  <footer class="page-footer">
-    <div class="right">All Rights Reserved, &copy; 2025 Cat Collector &nbsp;</div>
+
+  <!-- Balloons -->
+  <div class="balloon balloon1">🎈</div>
+  <div class="balloon balloon2">🎈</div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-text">All Rights Reserved, &copy; 2025 Kids World &nbsp;</p>
   </footer>
 </body>
 </html>

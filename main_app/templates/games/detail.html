@@ -1,24 +1,27 @@
-{% extends 'base.html'%} 
+{% extends 'base.html' %} 
 {% block content %}
-<h1>Game Details</h1>
-<div class="card">
+
+<div class="detail-card">
+  <h2 style="text-align:center; color:#5d3a99;">Game Details</h2>
+
   <div class="card-content">
-    <div class="right">
-      {% load static %}
-      <img
-        src="{% static game.game_image|cut:'main_app/static/' %}"
-        width="150px"
-        height="150px"
-      />
+    <div class="flex-container">
+      <div class="card-text">
+        <span class="card-title">{{ game.game_name }}</span>
+        <p>Description: {{ game.description }}</p>
+        <p>Price: {{ game.game_price }} BD</p>
+      </div>
+      <div class="card-image">
+        {% load static %}
+        <img src="{% static game.game_image|cut:'main_app/static/' %}" width="150px" height="150px" alt="Game Image"/>
+      </div>
     </div>
-    <span class="card-title"> {{game.game_name}} </span>
-    <p>Description: {{game.description}}</p>
-    <p>Price: {{game.game_price}} BD</p>
-    
-    <div class="card-section">
-      <a href="{% url 'games_update' game.id %}">Edit</a>
-      <a href="{% url 'games_delete' game.id %}">Delete</a>
+
+    <div class="card-buttons">
+      <a href="{% url 'games_update' game.id %}" class="btn">Edit</a>
+      <a href="{% url 'games_delete' game.id %}" class="btn delete-btn">Delete</a>
     </div>
   </div>
 </div>
+
 {% endblock %}
