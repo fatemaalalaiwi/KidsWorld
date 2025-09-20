@@ -209,6 +209,7 @@ button:hover, .btn:hover {
 .card-image img {
   border-radius: 10px;
   object-fit: cover;
+  
 }
 /* ------------------- Detail Card ------------------- */
 .detail-card {
@@ -246,7 +247,7 @@ button:hover, .btn:hover {
 }
 
 /* صورة اللعبة */
-.card-image img {
+ .card-image img {
   border-radius: 15px;
   object-fit: cover;
 }
@@ -409,4 +410,28 @@ button:hover, .btn:hover {
 
 .detail-card .btn.orange {
   background-color: #ff9800;
+}
+
+
+.status-1 {
+  background-color: #d4edda; /* light green */
+  color: #155724;            /* dark green text */
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 12px;
+}
+
+.status-2 {
+  background-color: #fff3cd; /* light orange / warning */
+  color: #856404;             /* dark orange text */
+  padding: 5px 10px;
+  border-radius: 5px;
+  animation: flash 1s ease-in-out infinite alternate;
+
+}
+
+/* Optional flashing effect for warning */
+@keyframes flash {
+  from { opacity: 1; }
+  to { opacity: 0.5; }
 }

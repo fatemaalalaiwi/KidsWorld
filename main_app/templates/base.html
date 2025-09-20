@@ -14,6 +14,7 @@
     <ul>
       <li><a href="{% url 'about' %}">About</a></li>
       {% if user.is_authenticated %}
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li> 
         <li><a href="{% url 'kid_create' %}">Add a Kid</a></li>
         <li><a href="{% url 'kid_index' %}">View All Kids</a></li>
         <li><a href="{% url 'games_create' %}">Add a Game</a></li>

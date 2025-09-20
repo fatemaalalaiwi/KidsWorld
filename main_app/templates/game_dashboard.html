@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="page-title">{{ game.game_name }} Dashboard</h1>
+<p>Selected Game ID from session: {{ request.session.selected_game_id }}</p>
+
+<p>{{ game.description }}</p>
+<p>Price: {{ game.game_price }} BD</p>
+<h3>Playing Kids Number: {{ playing_kids_number }}</h3>
+<h3>All Kids Number: {{ all_kids_number }}</h3>
+<h4>Kids playing this game:</h4>
+{% if kids_playing %}
+  <ul>
+    {% for kg in kids_playing %}
+      <li class="status-1">
+        <span class="countdown" 
+      data-endtime="{{ kg.end_time|time:'H:i:s' }}"
+      data-kidgameid="{{ kg.id }}"></span><br>
+        <strong>Kid Name:</strong> {{ kg.fk_kid_id.kid_name }} <br>
+        <strong>Parent Name:</strong> {{ kg.fk_kid_id.parent_name }}  <br>
+        <strong>Parent Phone:</strong> {{ kg.fk_kid_id.parent_phone }}  <br>
+        <strong>Start Time:</strong> {{ kg.start_time|time:"H:i" }} <br>
+        <strong>End Time:</strong> {{ kg.end_time|time:"H:i" }} <br>
+        <strong>Status:</strong> {{ kg.status }} <br>
+        {% if kg.user %}
+          <strong>Assigned By:</strong> {{ kg.user.username }} <br>
+        {% else %}
+          <strong>Assigned By:</strong> N/A <br>
+        {% endif %}
+
+        <!-- Countdown timer -->
+        <div>
+          <strong>Time Left:</strong> 
+          <span class="countdown" 
+                data-endtime="{{ kg.end_time|time:'H:i:s' }}"></span>
+        </div>
+        <hr>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No kids are playing this game yet.</p>
+{% endif %}
+<script>
+function startCountdown() {
+  const timers = document.querySelectorAll('.countdown');
+
+  timers.forEach(timer => {
+    const endTimeStr = timer.dataset.endtime; // "HH:MM:SS"
+    const li = timer.closest('li'); // get parent li
+    const kidGameId = timer.dataset.kidgameid; // get kid_game id
+
+    const parts = endTimeStr.split(':');
+    const endTime = new Date();
+    endTime.setHours(parts[0], parts[1], parts[2] || 0, 0);
+
+    function updateTimer() {
+      const diff = endTime - new Date();
+
+      if (diff <= 0) {
+        timer.innerHTML = 'Time Up!';
+        li.classList.remove('status-1');
+        li.classList.add('status-2');
+
+        // AJAX request to update database
+        fetch(`/update_kid_status/${kidGameId}/`, {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/json'
+          },
+        }).then(() => {
+          location.reload(); // refresh page after update
+        });
+
+        return;
+      }
+
+      const hours = Math.floor(diff / 1000 / 60 / 60);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      timer.innerHTML =
+        (hours > 0 ? hours + 'h ' : '') +
+        minutes + 'm ' +
+        seconds + 's';
+
+      if (diff <= 60 * 1000) { 
+        li.classList.remove('status-1');
+        li.classList.add('status-2');
+      }
+
+      setTimeout(updateTimer, 1000);
+    }
+
+    updateTimer();
+  });
+}
+
+document.addEventListener('DOMContentLoaded', startCountdown);
+</script>
+
+{% endblock %}

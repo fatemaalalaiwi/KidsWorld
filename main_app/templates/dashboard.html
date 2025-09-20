@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1 class="page-title">Dashboard</h1>
+
+<div class="card-container">
+  {% for game in games %}
+    <div class="card">
+      <div class="card-content" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+
+     
+        <div class="card-image" style="width:150px;height:150px;overflow:hidden;border-radius:12px;margin-bottom:10px;">
+          <img 
+            src="{% static game.game_image|cut:'main_app/static/' %}" 
+            alt="{{ game.game_name }}" 
+            style="width:100%;height:100%;object-fit:cover;display:block;border-radius:12px;">
+        </div>
+
+
+        <span class="card-title">{{ game.game_name }}</span>
+        <p>{{ game.description }}</p>
+        <p>Price: {{ game.game_price }} BD</p>
+
+        <!-- <p>create_date: {{ kids_games.create_date }} </p>
+        <h4>Kids playing this game:</h4>
+        <ul>
+          {% for kg in kids_games %}
+            {% if kg.fk_game.id == game.id %}
+              <li>{{ kg.fk_kid.kid_name }}</li>
+            {% endif %}
+          {% empty %}
+            <li>No kids are playing this game yet.</li>
+          {% endfor %} -->
+
+        </ul>
+
+<!-- 
+<ul>
+  {% for kg in kids_playing %}
+    <li>{{ kg.fk_kid.kid_name }}</li>
+  {% empty %}
+    <li>No kids are playing this game yet.</li>
+  {% endfor %}
+</ul> -->
+
+    <a href="{% url 'game_dashboard' game.id %}" class="btn btn-primary">View</a>
+
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

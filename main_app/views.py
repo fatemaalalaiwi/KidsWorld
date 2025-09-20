@@ -8,7 +8,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
-
+from django.utils import timezone
+# FOR CSRF Security
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 class GameCreate(LoginRequiredMixin, CreateView):
   model = games
@@ -18,9 +21,6 @@ class GameCreate(LoginRequiredMixin, CreateView):
   def form_valid(self, form):
       form.instance.user = self.request.user
       return super().form_valid(form)
-
-
-
 
 class GameUpdate(LoginRequiredMixin, UpdateView):
   model = games
@@ -98,6 +98,70 @@ class KidUpdate(LoginRequiredMixin, UpdateView):
 class KidDelete(LoginRequiredMixin, DeleteView):
   model = kids
   success_url = '/kids/'
+
+
+
+def dashboard(request):
+    all_games = games.objects.all()
+    all_kids_games = kids_games.objects.all()  
+
+    return render(request, 'dashboard.html', {
+        'games': all_games,
+        'kids_games': all_kids_games
+    })
+
+# views.py
+
+def game_dashboard(request, game_id):
+    # Store the selected game id in session
+    request.session['selected_game_id'] = game_id
+
+    # جميع الألعاب
+    all_games = games.objects.all()
+    
+    # اللعبة المحددة
+    game = get_object_or_404(games, id=game_id)
+    
+    # جميع الأطفال المرتبطين بنفس اللعبة
+    all_kids_games = kids_games.objects.filter(fk_game_id=game_id)
+    
+    # عدد الأطفال الذين يلعبون حاليًا (status 1 أو 2)
+    playing_kids_number = all_kids_games.filter(status__in=[1]).count()
+    
+    # عدد جميع الأطفال المرتبطين بنفس اللعبة
+    all_kids_number = all_kids_games.count()
+    
+    # الأطفال الذين يلعبون الآن (status 1 أو 2)
+    kids_playing = all_kids_games.filter(status__in=[1])
+
+    # الأطفال الذين تم تسجيلهم اليوم فقط
+    today = timezone.now().date()
+    kids_playing_today = all_kids_games.filter(create_date=today)
+    
+    return render(request, 'game_dashboard.html', {
+        'game': game,
+        'games': all_games,
+        'kids_games': all_kids_games,
+        'playing_kids_number': playing_kids_number,
+        'all_kids_number': all_kids_number,
+        'kids_playing': kids_playing,
+        'kids_playing_today': kids_playing_today,
+    })
+
+@csrf_exempt
+def update_kid_status(request, kid_game_id):
+    """
+    AJAX view to update the status of a kid_game to 2.
+    """
+    if request.method == 'POST':
+        try:
+            kid_game = kids_games.objects.get(id=kid_game_id)
+            kid_game.status = 2
+            kid_game.save()
+            return JsonResponse({'success': True})
+        except kids_games.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Record not found'})
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
 
 @login_required
 def assoc_kid(request, kid_id, game_id):

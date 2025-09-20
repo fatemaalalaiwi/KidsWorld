@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import timedelta
+from django.utils import timezone
 
 
 
@@ -66,11 +67,11 @@ class employees(models.Model):
 class kids_games(models.Model):
     fk_kid_id = models.ForeignKey(kids, on_delete=models.CASCADE)
     fk_game_id = models.ForeignKey(games, on_delete=models.CASCADE)
-    start_time = models.DateTimeField(auto_now_add=True)
-    end_time = models.DateTimeField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
     user = models.ForeignKey(User , on_delete=models.SET_NULL, null=True, blank=True)
     status = models.IntegerField()
-
+    create_date = models.DateField(auto_now_add=True, null=True, blank=True)
     def save(self, *args, **kwargs):
         if not self.end_time:
             self.end_time = self.start_time + timedelta(minutes=self.kid.card.card_duration_time)

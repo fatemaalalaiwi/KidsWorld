@@ -8,8 +8,10 @@
     <div class="flex-container">
       <div class="card-text">
         <span class="card-title">{{ game.game_name }}</span>
-        <p>Description: {{ game.description }}</p>
+        <p> {{ game.description }}</p>
         <p>Price: {{ game.game_price }} BD</p>
+       
+
       </div>
       <div class="card-image">
         {% load static %}
@@ -25,3 +27,5 @@
 </div>
 
 {% endblock %}
+
+
