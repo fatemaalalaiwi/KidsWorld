@@ -16,11 +16,12 @@
     </div>
     <span class="card-title">{{ kid.kid_name }}</span>
     <p>Parent Phone: {{ kid.parent_phone }}</p>
-    <!-- <p>Age: {{ kid.kid_age }}</p> -->
+    <p><strong>Current Credit:</strong> {{ kid.credit }} BD</p>
+
 
     <div class="card-section">
       <a href="{% url 'kid_update' kid.id %}" class="btn green">Edit</a>
-      <a href="{% url 'kid_delete' kid.id %}" class="btn orange">Delete</a>
+      <a href="{% url 'kid_delete' kid.id %}" class="btn delete-kid">Delete</a>
     </div>
   </div>
 </div>

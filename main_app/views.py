@@ -1,8 +1,14 @@
-from django.shortcuts import render, redirect
+# views.py
+import pytz
+import uuid
+from datetime import datetime, timedelta
+from django import forms
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import games, kids , kids_games , cards
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 # from .forms import FeedingForm
+from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -12,6 +18,7 @@ from django.utils import timezone
 # FOR CSRF Security
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+
 
 class GameCreate(LoginRequiredMixin, CreateView):
   model = games
@@ -34,8 +41,6 @@ class GameDelete(LoginRequiredMixin, DeleteView):
 def home(request):
   return render(request, 'home.html')
 
-
-
 @login_required
 def games_index(request):
    
@@ -49,23 +54,6 @@ def games_detail(request, game_id):
   kid_list = kids_games.objects.filter(fk_game_id=game.id, )
   return render(request, 'games/detail.html', {'game': game})
 
-  #Get the toys, cat dosent have
-#   toys_cat_doesnt_have = Toy.objects.exclude(id__in = cat.toys.all().values_list('id'))
-#   feeding_form = FeedingForm()
-#   return render(request, 'cats/detail.html', 
-#                 {'cat': cat, 
-#                 'feeding_form': feeding_form,
-#                 'toys': toys_cat_doesnt_have
-#                 })
-
-# @login_required
-# def add_feeding(request, cat_id):
-#   form = FeedingForm(request.POST)
-#   if form.is_valid():
-#     new_feeding = form.save(commit=False)
-#     new_feeding.cat_id = cat_id
-#     new_feeding.save()
-#   return redirect('detail', cat_id)
 
 
 class KidList(LoginRequiredMixin ,ListView):
@@ -81,11 +69,40 @@ class KidDetail(LoginRequiredMixin, DetailView):
         # جلب الألعاب المرتبطة بالطفل
         context['kid_games'] = kids_games.objects.filter(fk_kid_id=self.object.id)
         return context
+class KidForm(forms.ModelForm):
+    class Meta:
+        model = kids
+        fields = ['kid_name', 'parent_name', 'parent_phone', 'kid_image', 'credit', 'fk_card_id']
+
+    # Override fk_card_id to be a dropdown of cards
+    fk_card_id = forms.ModelChoiceField(
+        queryset=cards.objects.all(),
+        empty_label="Select Card",
+        label="Card Type"
+    )
+
+    # Optional: dropdown for credit
+    CREDIT_CHOICES = [
+        (0, '0'),
+        (10, '10'),
+        (20, '20'),
+        (50, '50'),
+        (100, '100'),
+    ]
+    credit = forms.ChoiceField(choices=CREDIT_CHOICES, label="Credit")
 
 class KidCreate(LoginRequiredMixin, CreateView):
-  model = kids
-  fields = ['kid_name', 'parent_phone','kid_image', 'credit' ]
-  success_url = '/kids/'
+    model = kids
+    form_class = KidForm
+    success_url = '/kids/'
+
+    def form_valid(self, form):
+        # Force unique hash and token for this kid
+        form.instance.hash = uuid.uuid4().hex
+        form.instance.token = uuid.uuid4().hex
+        # Optionally assign current user
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class KidUpdate(LoginRequiredMixin, UpdateView):
@@ -196,3 +213,52 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)   
+
+
+def nfc_generate(request, hash, token):
+    # ✅ 1. Check session
+    game_id = request.session.get('selected_game_id')
+    if not game_id:
+        messages.error(request, "You are not choosing the game id")
+        return redirect('home')  # غيريها للصفحة المناسبة
+
+    # ✅ 2. Check kid availability
+    kid = kids.objects.filter(hash=hash, token=token).select_related('fk_card_id').first()
+    if not kid:
+        messages.error(request, "This user is not available in our website")
+        return redirect('home')  # غيريها للصفحة المناسبة
+
+    # ✅ 3. Fetch kid info + card info
+    kid_id = kid.id
+    kid_credit = kid.credit
+    card_duration_time = kid.fk_card_id.card_duration_time if kid.fk_card_id else 0
+
+    # ✅ 4. Check game price
+    game = get_object_or_404(games, id=game_id)
+    game_price = game.game_price
+
+    # ✅ 5. Balance validation
+    if kid_credit < game_price:
+        messages.error(request, "You don't have balance to play this game, please recharge it.")
+        return redirect('home')  # غيريها للصفحة المناسبة
+
+    # ✅ Deduct balance
+    kid.credit -= game_price
+    kid.save()
+
+    # ✅ Insert into kids_games
+    bahrain_tz = pytz.timezone("Asia/Bahrain")
+    start_time = datetime.now(bahrain_tz).time()
+    end_time = (datetime.combine(datetime.today(), start_time) + timedelta(minutes=card_duration_time)).time()
+
+    kids_games.objects.create(
+        fk_kid_id=kid,
+        fk_game_id=game,
+        start_time=start_time,
+        end_time=end_time,
+        status=1,
+        user=request.user if request.user.is_authenticated else None
+    )
+
+    # ✅ Redirect to game_dashboard
+    return redirect(f'/game_dashboard/{game_id}/')

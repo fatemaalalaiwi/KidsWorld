@@ -198,6 +198,17 @@ button:hover, .btn:hover {
   color: #5d3a99;
 }
 
+/* ------------------- Fixed Description for Dashboard Cards ------------------- */
+.card-content .description {
+  height: 60px;             /* ارتفاع ثابت لمكان الوصف */
+  overflow: hidden;         /* يخفي النص الزائد */
+  text-overflow: ellipsis;  /* يظهر ... للنص الطويل */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;    /* يحدد عدد الأسطر المعروضة */
+  -webkit-box-orient: vertical;
+}
+
+
 /* ------------------- Flex Container ------------------- */
 .flex-container {
   display: flex;
@@ -263,7 +274,7 @@ button:hover, .btn:hover {
   border-radius: 12px;
   font-weight: bold;
   color: #5d3a99;
-  background: linear-gradient(90deg, #e8f6e1, #a9f7ba);
+  background: linear-gradient(90deg, #f0b3ff, #fffeb7);
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   text-decoration: none;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -287,7 +298,7 @@ button:hover, .btn:hover {
 }
 
 .delete-buttons .delete-btn {
-  background: linear-gradient(90deg, #ff9e5c, #ff7b3a); /* برتقالي */
+  background: linear-gradient(90deg, #ffbaba, #ff7b7b); 
   color: white;
   border-radius: 12px;
   padding: 10px 20px;
@@ -372,7 +383,7 @@ button:hover, .btn:hover {
 .detail-card {
   max-width: 400px;
   margin: 0 auto 40px auto;
-  background: #fff;
+  background:  #fff3e0;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   padding: 20px;
@@ -434,4 +445,22 @@ button:hover, .btn:hover {
 @keyframes flash {
   from { opacity: 1; }
   to { opacity: 0.5; }
+}
+
+/* ------------------- Delete Button for Kid ------------------- */
+.delete-kid {
+  background: linear-gradient(90deg, #ffbaba, #ff7b7b); /* نفس لون زر Delete للعبة */
+  color: white;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.delete-kid:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }

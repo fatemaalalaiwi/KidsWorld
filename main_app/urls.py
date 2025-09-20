@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+# urls.py
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -30,7 +31,7 @@ urlpatterns = [
     path('kids/<int:kids_id>/unassoc_kid/<int:game_id>/' , views.unassoc_kid, name='unassoc_kid'),
     # ... To update the status after thime out
     path('update_kid_status/<int:kid_game_id>/', views.update_kid_status, name='update_kid_status'),
-
+    path('nfc_generate/<str:hash>/<str:token>/', views.nfc_generate, name='nfc_generate'),
     path('accounts/signup/' , views.signup , name='signup')
    
 ]
