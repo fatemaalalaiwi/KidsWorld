@@ -34,8 +34,7 @@ class GameDelete(LoginRequiredMixin, DeleteView):
 def home(request):
   return render(request, 'home.html')
 
-def about(request):
-  return render(request, 'about.html')
+
 
 @login_required
 def games_index(request):

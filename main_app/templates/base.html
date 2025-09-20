@@ -12,7 +12,7 @@
   <header class="navbar">
     <a href="{% url 'home' %}" class="brand-logo">Kids World</a>
     <ul>
-      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'home' %}">Home</a></li>
       {% if user.is_authenticated %}
         <li><a href="{% url 'dashboard' %}">Dashboard</a></li> 
         <li><a href="{% url 'kid_create' %}">Add a Kid</a></li>
@@ -44,7 +44,7 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <p class="footer-text">All Rights Reserved, &copy; 2025 Kids World &nbsp;</p>
+    <p class="footer-text">All Rights Reserved, &copy; 2025 Kids World 🏰 &nbsp;</p>
   </footer>
 </body>
 </html>
