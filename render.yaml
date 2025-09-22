@@ -8,7 +8,7 @@ databases:
 services:
   - type: web
     plan: free
-    name: kids_worldserver
+    name: kids_world
     runtime: python
     buildCommand: './build.sh'
     startCommand: 'python -m gunicorn kids_world.asgi:application -k uvicorn.workers.UvicornWorker'
