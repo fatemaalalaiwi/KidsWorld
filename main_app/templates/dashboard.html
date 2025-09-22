@@ -8,7 +8,7 @@
 <div class="card-container">
   {% for game in games %}
     <div class="card">
-      <!-- Card Image -->
+       <!-- Card Image -->
       <div class="card-image" style="width:150px;height:150px;overflow:hidden;border-radius:12px;margin:0 auto 10px;">
         <img 
           src="{% static game.game_image|cut:'main_app/static/' %}" 
@@ -22,7 +22,7 @@
         <p class="description">{{ game.description }}</p>
         <p>Price: {{ game.game_price }} BD</p>
 
-        <!-- Button -->
+        <!-- View Button -->
         <div class="card-buttons" style="margin-top:auto;">
           <a href="{% url 'game_dashboard' game.id %}" class="btn btn-primary">View</a>
         </div>

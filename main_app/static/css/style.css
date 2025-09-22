@@ -48,6 +48,7 @@ body {
   margin: 0;
   padding: 0;
   align-items: center;
+  margin-right: 30px;
 }
 
 .navbar ul li a {
@@ -62,6 +63,21 @@ body {
 .navbar ul li a:hover {
   background-color: rgba(255,255,255,0.5);
 }
+
+
+.rotating-star {
+  display: inline-block;
+  margin-left: 5px; /* مسافة بسيطة عن النص */
+  animation: spin 8s linear infinite; /* الدوران المستمر */
+  font-size: 1.2em; /* حجم النجمة */
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 
 /* ------------------- Main container ------------------- */
 .main-container {
@@ -95,6 +111,31 @@ body {
   font-weight: bold;
   border-radius: 15px 15px 0 0;
   margin-top: auto;
+  position: relative;
+}
+
+.footer-text {
+  font-size: 16px;
+  display: inline-block;
+  position: relative;
+}
+.car {
+  font-size: 32px;
+  display: inline-block;
+  margin-left: 10px;
+  position: relative; /* ضروري لتحريك السيارة */
+  animation: drive 6s ease-in-out infinite alternate, bounce 1s ease-in-out infinite alternate;
+}
+
+@keyframes drive {
+  0%   { left: 0; }
+  100% { left: 150px; } /* تمشي 150px يمين */
+}
+
+@keyframes bounce {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-5px); } /* طفوة صغيرة */
+  100% { transform: translateY(0); }
 }
 
 /* ------------------- Forms Centering ------------------- */

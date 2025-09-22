@@ -2,16 +2,30 @@
 {% load static %}
 {% block content %}
 
+
+<link rel="stylesheet" href="{% static 'css/game_dashboard.css' %}">
+
+
 <div class="dashboard-container">
 
     <h1 class="page-title">{{ game.game_name }} Dashboard</h1>
     
     <div class="game-info">
-        <p><strong>Selected Game ID:</strong> {{ request.session.selected_game_id }}</p>
-        <p><strong>Description:</strong> {{ game.description }}</p>
-        <p><strong>Price:</strong> {{ game.game_price }} BD</p>
-        <p><strong>Playing Kids Number:</strong> {{ playing_kids_number }}</p>
-        <p><strong>All Kids Number:</strong> {{ all_kids_number }}</p>
+        <div class="game-info-content">
+            <!-- text of the game  -->
+            <div class="game-text">
+                <p><strong>Selected Game ID:</strong> {{ request.session.selected_game_id }}</p>
+                <p><strong>Description:</strong> {{ game.description }}</p>
+                <p><strong>Price:</strong> {{ game.game_price }} BD</p>
+                <p><strong>Playing Kids Number:</strong> {{ playing_kids_number }}</p>
+                <p><strong>All Kids Number:</strong> {{ all_kids_number }}</p>
+            </div>
+
+            <!-- image of the game -->
+            <div class="game-image">
+                <img src="{% static game.game_image|cut:'main_app/static/' %}" alt="{{ game.game_name }}">
+            </div>
+        </div>
     </div>
 
     <h3>Kids playing this game:</h3>
@@ -33,7 +47,6 @@
               <strong>Time Left:</strong>
               <span class="countdown" data-endtime="{{ kg.end_time|time:'H:i:s' }}" data-kidgameid="{{ kg.id }}"></span>
             </div>
-            
           </li>
         {% endfor %}
       </ul>
@@ -43,6 +56,7 @@
 
 </div>
 
+<!-- Count -->
 <script>
 function startCountdown() {
   const timers = document.querySelectorAll('.countdown');
@@ -85,56 +99,5 @@ function startCountdown() {
 document.addEventListener('DOMContentLoaded', startCountdown);
 </script>
 
-<style>
-.dashboard-container {
-  max-width: 800px;
-  margin: 40px auto;
-  text-align: center;
-  font-family: Arial, sans-serif;
-}
-
-.game-info {
-  background: #f7f7f7;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  text-align: left;
-}
-
-.kids-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.kid-card {
-  background-color: #d4edda; /* أخضر */
-  padding: 20px;
-  margin-bottom: 15px;
-  border-radius: 12px;
-  text-align: left;
-  box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-}
-
-.kid-card.status-2 {
-  background-color: #fff3cd; /* برتقالي */
-}
-
-.kid-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
-}
-
-.countdown-container {
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-.no-kids {
-  font-style: italic;
-  color: #555;
-}
-</style>
 
 {% endblock %}
