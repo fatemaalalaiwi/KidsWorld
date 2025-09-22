@@ -3,6 +3,7 @@ databases:
     plan: free
     databaseName: kids_worldapp
     user: admin
+    region: singapore
 
 services:
   - type: web
@@ -11,6 +12,7 @@ services:
     runtime: python
     buildCommand: './build.sh'
     startCommand: 'python -m gunicorn kids_world.asgi:application -k uvicorn.workers.UvicornWorker'
+    region: singapore
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -20,3 +22,5 @@ services:
         generateValue: true
       - key: WEB_CONCURRENCY
         value: 4
+      - key: ALLOWED_HOSTS
+        value: '*'
