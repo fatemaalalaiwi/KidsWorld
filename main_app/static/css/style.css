@@ -34,6 +34,12 @@ body {
   border-radius: 0 0 15px 15px;
 }
 
+.navbar ul li a.active {
+  background-color: rgba(255,255,255,0.5); /* نفس لون hover */
+  border-radius: 8px;
+}
+
+
 .navbar .brand-logo {
   font-weight: bold;
   font-size: 1.3rem;
@@ -44,7 +50,7 @@ body {
 .navbar ul {
   list-style: none;
   display: flex;
-  gap: 10px;
+  gap: 20px;
   margin: 0;
   padding: 0;
   align-items: center;
@@ -59,19 +65,25 @@ body {
   border-radius: 8px;
   transition: 0.3s;
 }
-
 .navbar ul li a:hover {
   background-color: rgba(255,255,255,0.5);
+}
+
+.navbar ul li a.active {
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 8px;
 }
 
 
 .rotating-star {
   display: inline-block;
-  margin-left: 5px; /* مسافة بسيطة عن النص */
-  animation: spin 8s linear infinite; /* الدوران المستمر */
-  font-size: 1.2em; /* حجم النجمة */
+  margin-left: 5px; 
+  animation: spin 8s linear infinite; 
+  font-size: 1.2em;
   vertical-align: middle;
 }
+
+
 
 @keyframes spin {
   from { transform: rotate(0deg); }
@@ -81,7 +93,7 @@ body {
 
 /* ------------------- Main container ------------------- */
 .main-container {
-  margin-top: 70px; /* مساحة تحت navbar */
+  margin-top: 70px; 
   padding: 20px;
 }
 
@@ -123,18 +135,18 @@ body {
   font-size: 32px;
   display: inline-block;
   margin-left: 10px;
-  position: relative; /* ضروري لتحريك السيارة */
+  position: relative; 
   animation: drive 6s ease-in-out infinite alternate, bounce 1s ease-in-out infinite alternate;
 }
 
 @keyframes drive {
   0%   { left: 0; }
-  100% { left: 150px; } /* تمشي 150px يمين */
+  100% { left: 150px; } 
 }
 
 @keyframes bounce {
   0%   { transform: translateY(0); }
-  50%  { transform: translateY(-5px); } /* طفوة صغيرة */
+  50%  { transform: translateY(-5px); } 
   100% { transform: translateY(0); }
 }
 
@@ -175,6 +187,51 @@ button:hover, .btn:hover {
   box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
+/* Add Game */
+.add-game-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #5d3a99;
+  background: linear-gradient(90deg, #d87af0, #f7f59c); 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  text-decoration: none; 
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.add-game-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+/* add-kid-btn */
+/* Add Kidd */
+.add-kid-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #5d3a99;
+  background: linear-gradient(90deg, #d87af0, #f7f59c); 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  text-decoration: none; 
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.add-kid-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+
+
+
+
 /* ------------------- Cards ------------------- */
 .card {
   background-color: #fff3e0;
@@ -211,9 +268,9 @@ button:hover, .btn:hover {
 
 /* ------------------- Game Card ------------------- */
 .game-card {
-  background-color: #fff3e0; /* خلفية ناعمة */
-  border-radius: 20px;        /* حواف دائرية */
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* ظل خفيف */
+  background-color: #fff3e0; 
+  border-radius: 20px;       
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15); 
   width: 300px;
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -241,11 +298,11 @@ button:hover, .btn:hover {
 
 /* ------------------- Fixed Description for Dashboard Cards ------------------- */
 .card-content .description {
-  height: 60px;             /* ارتفاع ثابت لمكان الوصف */
-  overflow: hidden;         /* يخفي النص الزائد */
-  text-overflow: ellipsis;  /* يظهر ... للنص الطويل */
+  height: 60px;           
+  overflow: hidden;        
+  text-overflow: ellipsis;  
   display: -webkit-box;
-  -webkit-line-clamp: 3;    /* يحدد عدد الأسطر المعروضة */
+  -webkit-line-clamp: 3;   
   -webkit-box-orient: vertical;
 }
 
@@ -268,18 +325,18 @@ button:hover, .btn:hover {
   max-width: 500px;
   margin: 30px auto;
   padding: 25px;
-  background-color: #fff3e0; /* خلفية ناعمة */
-  border-radius: 20px;       /* حواف دائرية */
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* ظل خفيف */
+  background-color: #fff3e0; 
+  border-radius: 20px;      
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15); 
   position: relative;
 }
 
-/* عنوان الكارد */
+
 .detail-card h2 {
   margin-bottom: 20px;
 }
 
-/* Flex container */
+
 .flex-container {
   display: flex;
   justify-content: space-between;
@@ -298,13 +355,13 @@ button:hover, .btn:hover {
   color: #5d3a99;
 }
 
-/* صورة اللعبة */
+
  .card-image img {
   border-radius: 15px;
   object-fit: cover;
 }
 
-/* أزرار Edit / Delete */
+/* Edit / Delete */
 .card-buttons {
   display: flex;
   justify-content: space-around;
@@ -326,7 +383,7 @@ button:hover, .btn:hover {
   box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
-/* زر الحذف مختلف اللون */
+/* delete */
 .card-buttons .delete-btn {
   background: linear-gradient(90deg, #ffbaba, #ff7b7b);
   color: white;
@@ -356,7 +413,7 @@ button:hover, .btn:hover {
 }
 
 .delete-buttons .cancel-btn {
-  background: linear-gradient(90deg, #7bff9e, #3aff7b); /* أخضر */
+  background: linear-gradient(90deg, #7bff9e, #3aff7b); 
   color: white;
   border-radius: 12px;
   padding: 10px 20px;
@@ -466,16 +523,16 @@ button:hover, .btn:hover {
 
 
 .status-1 {
-  background-color: #d4edda; /* light green */
-  color: #155724;            /* dark green text */
+  background-color: #d4edda; 
+  color: #155724;           
   padding: 5px 10px;
   border-radius: 5px;
   margin-bottom: 12px;
 }
 
 .status-2 {
-  background-color: #fff3cd; /* light orange / warning */
-  color: #856404;             /* dark orange text */
+  background-color: #fff3cd; 
+  color: #856404;           
   padding: 5px 10px;
   border-radius: 5px;
   animation: flash 1s ease-in-out infinite alternate;
@@ -490,7 +547,7 @@ button:hover, .btn:hover {
 
 /* ------------------- Delete Button for Kid ------------------- */
 .delete-kid {
-  background: linear-gradient(90deg, #ffbaba, #ff7b7b); /* نفس لون زر Delete للعبة */
+  background: linear-gradient(90deg, #ffbaba, #ff7b7b); 
   color: white;
   border-radius: 12px;
   padding: 10px 20px;

@@ -73,6 +73,10 @@ class kids_games(models.Model):
     status = models.IntegerField()
     create_date = models.DateField(auto_now_add=True, null=True, blank=True)
 
+
+    def __str__(self):
+        return f'Game: {self.fk_game_id.game_name} - Kid: {self.fk_kid_id.kid_name}'
+    
     def save(self, *args, **kwargs):
         if not self.end_time:
             self.end_time = self.start_time + timedelta(minutes=self.fk_kid_id.fk_card_id.card_duration_time)

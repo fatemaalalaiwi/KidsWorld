@@ -183,7 +183,7 @@ def update_kid_status(request, kid_game_id):
 def assoc_kid(request, kid_id, game_id):
     kid = get_object_or_404(kids, pk=kid_id)
     game = get_object_or_404(games, pk=game_id)
-
+    
  
 
 @login_required
@@ -194,8 +194,8 @@ def unassoc_kid(request, kid_id, game_id):
     kid_game = get_object_or_404(kids_games, fk_kid_id=kid_id, fk_game_id=game_id)
     kid_game.delete()
     
-    return redirect('game_detail', game_id=game_id)
-
+    # return redirect('game_detail', game_id=game_id)
+    return redirect('home')
 
 
 def signup(request):
@@ -206,7 +206,7 @@ def signup(request):
     if form.is_valid():
       user = form.save()
       login(request, user)
-      return redirect('index')
+      return redirect('home')
     else:
       error_message = 'Invalid signup - Please try again later'
   #if get  
