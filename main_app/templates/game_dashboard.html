@@ -23,7 +23,7 @@
 
             <!-- image of the game -->
             <div class="game-image">
-                <img src="{% static game.game_image|cut:'main_app/static/' %}" alt="{{ game.game_name }}">
+                <img src="{{ game.game_image.url }}" alt="{{ game.game_name }}">
             </div>
         </div>
     </div>

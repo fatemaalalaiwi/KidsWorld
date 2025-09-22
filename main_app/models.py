@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import timedelta
 from django.utils import timezone
+from cloudinary.models import CloudinaryField
 
 
 type_of_card = (
@@ -30,7 +31,9 @@ class kids(models.Model):
     parent_phone = models.CharField(max_length=20)
 
     fk_card_id = models.ForeignKey(cards, on_delete=models.SET_NULL, null=True, blank=True)
-    kid_image = models.ImageField(upload_to='main_app/static/uploads/', default="")
+    # kid_image = models.ImageField(upload_to='main_app/static/uploads/', default="")
+    kid_image = CloudinaryField('kid_image',folder='kids_images')
+
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     credit = models.FloatField(default=0.0)
 
@@ -49,7 +52,9 @@ class kids(models.Model):
 class games(models.Model):
     game_name = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
-    game_image = models.ImageField(upload_to='main_app/static/uploads/', default="")
+    # game_image = models.ImageField(upload_to='main_app/static/uploads/', default="")
+    game_image = CloudinaryField('game_image',folder='game_images')
+
     game_price = models.FloatField(default=0.0)
 
     def __str__(self):

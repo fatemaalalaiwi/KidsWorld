@@ -19,7 +19,7 @@
               </div>
               <div class="card-image">
                 {% load static %}
-                <img src="{% static ga.game_image|cut:'main_app/static/' %}" width="100px" height="100px" alt="Game Image">
+                <img src="{{ ga.game_image.url }}" width="100px" height="100px" alt="Game Image">
               </div>
             </div>
           </div>

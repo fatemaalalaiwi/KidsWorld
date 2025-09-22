@@ -8,7 +8,7 @@
     <div class="right">
       {% load static %}
       <img
-        src="{% static kid.kid_image|cut:'main_app/static/' %}"
+        src="{{ kid.kid_image.url }}"
         width="150px"
         height="150px"
         class="detail-img"

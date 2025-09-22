@@ -13,7 +13,7 @@
           <span class="card-title">{{ kid.kid_name }}</span>
           <p>Parent number: {{ kid.parent_phone }}</p>
           {% load static %}
-          <img src="{% static kid.kid_image|cut:'main_app/static/' %}" alt="Kid Image">
+          <img src="{{ kid.kid_image.url }}" alt="Kid Image">
         </div>
       </div>
     </a>

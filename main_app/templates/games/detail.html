@@ -15,7 +15,7 @@
       </div>
       <div class="card-image">
         {% load static %}
-        <img src="{% static game.game_image|cut:'main_app/static/' %}" width="150px" height="150px" alt="Game Image"/>
+        <img src="{{ game.game_image.url }}" width="150px" height="150px" alt="Game Image"/>
       </div>
     </div>
 

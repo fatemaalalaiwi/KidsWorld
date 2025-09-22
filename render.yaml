@@ -1,0 +1,22 @@
+databases:
+  - name: kinds_worlddb
+    plan: free
+    databaseName: kinds_worldapp
+    user: admin
+
+services:
+  - type: web
+    plan: free
+    name: kinds_worldserver
+    runtime: python
+    buildCommand: './build.sh'
+    startCommand: 'python -m gunicorn kinds_world.asgi:application -k uvicorn.workers.UvicornWorker'
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: kinds_worlddb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
