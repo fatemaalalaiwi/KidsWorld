@@ -15,23 +15,30 @@
     </a>
     <ul>
       <li><a href="{% url 'home' %}">Home</a></li>
+
       {% if user.is_authenticated %}
-        <li><a href="{% url 'dashboard' %}" class="active" >Dashboard</a></li> 
-        <!-- <li><a href="{% url 'kid_create' %}">Add a Kid</a></li> -->
+        <li><a href="{% url 'dashboard' %}" class="active">Dashboard</a></li> 
         <li><a href="{% url 'kid_index' %}">Kids</a></li>
-        <!-- <li><a href="{% url 'games_create' %}">Add a Game</a></li> -->
         <li><a href="{% url 'index' %}">Games</a></li>
+
+        <!-- زر خروج -->
         <li>
-        <a href="{% url 'logout' %}" 
-          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-         Log Out
-        </a>
-
-<form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
-    {% csrf_token %}
-</form>
-
+          <a href="{% url 'logout' %}" 
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+           Log Out
+          </a>
+          <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+              {% csrf_token %}
+          </form>
         </li>
+
+        <!-- رابط تجريبي مؤقت لصفحة nfc_generate -->
+        <li>
+          <a href="{% url 'nfc_generate' 'd561b0183a064cdfba4478c1e82f332e' '9d12345token' %}">
+            Test NFC Generate
+          </a>
+        </li>
+
       {% else %}
         <li><a href="{% url 'signup' %}">Sign Up</a></li>
         <li><a href="{% url 'login' %}">Log In</a></li>
@@ -41,21 +48,20 @@
 
   <!-- Main content -->
   <main class="main-container">
-    {% block content %}
-    {% endblock %}
+    {% block content %}{% endblock %}
   </main>
 
   <!-- Balloons -->
   <div class="balloon balloon1">🎈</div>
   <div class="balloon balloon2">🎈</div>
 
-<!-- Footer -->
-<footer class="footer">
-  <p class="footer-text">
-    All Rights Reserved, &copy; 2025 Kids World 
-    <span class="car">🚗</span>
-  </p>
-</footer>
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-text">
+      All Rights Reserved, &copy; 2025 Kids World 
+      <span class="car">🚗</span>
+    </p>
+  </footer>
 
 </body>
 </html>

@@ -2,9 +2,7 @@
 {% load static %}
 {% block content %}
 
-
 <link rel="stylesheet" href="{% static 'css/game_dashboard.css' %}">
-
 
 <div class="dashboard-container">
 
@@ -31,38 +29,52 @@
     <h3>Kids playing this game:</h3>
     
     {% if kids_playing %}
-      <ul class="kids-list">
-        {% for kg in kids_playing %}
-          <li class="kid-card status-1">
-            <div class="kid-info">
-              <p><strong>Kid Name:</strong> {{ kg.fk_kid_id.kid_name }}</p>
-              <p><strong>Parent Name:</strong> {{ kg.fk_kid_id.parent_name }}</p>
-              <p><strong>Parent Phone:</strong> {{ kg.fk_kid_id.parent_phone }}</p>
-              <p><strong>Start Time:</strong> {{ kg.start_time|time:"H:i" }}</p>
-              <p><strong>End Time:</strong> {{ kg.end_time|time:"H:i" }}</p>
-              <p><strong>Status:</strong> {{ kg.status }}</p>
-              <p><strong>Assigned By:</strong> {% if kg.user %}{{ kg.user.username }}{% else %}N/A{% endif %}</p>
-            </div>
-            <div class="countdown-container">
-              <strong>Time Left:</strong>
-              <span class="countdown" data-endtime="{{ kg.end_time|time:'H:i:s' }}" data-kidgameid="{{ kg.id }}"></span>
-            </div>
-          </li>
-        {% endfor %}
-      </ul>
+    <table class="kids-list" style="width:100%; border-collapse: separate; border-spacing: 0 15px;">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Kid Name</th>
+                <th>Parent Name</th>
+                <th>Parent Phone</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+                <th>Time Left</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for kg in kids_playing %}
+            <tr class="kid-card status-1">
+                <td>
+                    <img src="{% static kg.fk_kid_id.kid_image|cut:'main_app/static/' %}" alt="{{ kg.fk_kid_id.kid_name }}" class="kid-img" style="width:80px; height:80px; border-radius:12px;">
+                </td>
+                <td>{{ kg.fk_kid_id.kid_name }}</td>
+                <td>{{ kg.fk_kid_id.parent_name }}</td>
+                <td>{{ kg.fk_kid_id.parent_phone }}</td>
+                <td>{{ kg.start_time|time:"H:i" }}</td>
+                <td>{{ kg.end_time|time:"H:i" }}</td>
+                <td class="status-text">{{ kg.status }}</td>
+                <td>
+                    <div class="countdown-container">
+                        <span class="countdown" data-endtime="{{ kg.end_time|time:'H:i:s' }}" data-kidgameid="{{ kg.id }}"></span>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% else %}
       <p class="no-kids">No kids are playing this game yet.</p>
     {% endif %}
 
 </div>
 
-<!-- Count -->
 <script>
 function startCountdown() {
   const timers = document.querySelectorAll('.countdown');
   timers.forEach(timer => {
+    const row = timer.closest('tr');
     const endTimeStr = timer.dataset.endtime;
-    const li = timer.closest('li');
     const kidGameId = timer.dataset.kidgameid;
     const parts = endTimeStr.split(':');
     const endTime = new Date();
@@ -72,8 +84,8 @@ function startCountdown() {
       const diff = endTime - new Date();
       if (diff <= 0) {
         timer.innerHTML = 'Time Up!';
-        li.classList.remove('status-1');
-        li.classList.add('status-2');
+        row.classList.remove('status-1');
+        row.classList.add('status-2');
         fetch(`/update_kid_status/${kidGameId}/`, {
           method: 'POST',
           headers: {
@@ -87,9 +99,10 @@ function startCountdown() {
       const minutes = Math.floor((diff / 1000 / 60) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
       timer.innerHTML = (hours > 0 ? hours + 'h ' : '') + minutes + 'm ' + seconds + 's';
+      // تغيير اللون قبل دقيقة واحدة
       if (diff <= 60 * 1000) { 
-        li.classList.remove('status-1');
-        li.classList.add('status-2');
+        row.classList.remove('status-1');
+        row.classList.add('status-2');
       }
       setTimeout(updateTimer, 1000);
     }
@@ -98,6 +111,5 @@ function startCountdown() {
 }
 document.addEventListener('DOMContentLoaded', startCountdown);
 </script>
-
 
 {% endblock %}

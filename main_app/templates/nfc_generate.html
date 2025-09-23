@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/game_dashboard.css' %}">
+
+<div class="dashboard-container">
+
+    <h1 class="page-title">Game Access</h1>
+
+    <!-- بطاقة الطفل واللعبة -->
+    <div class="game-info">
+        <div class="game-info-content">
+
+            <!-- معلومات اللعبة -->
+            <div class="game-text">
+                <p><strong>Game Name:</strong> {{ game.game_name }}</p>
+                <p><strong>Price:</strong> {{ game.game_price }} BD</p>
+                <p><strong>Kid Name:</strong> {{ kid.kid_name }}</p>
+                <p><strong>Parent Name:</strong> {{ kid.parent_name }}</p>
+                <p><strong>Parent Phone:</strong> {{ kid.parent_phone }}</p>
+                <p><strong>Start Time:</strong> {{ start_time|time:"H:i" }}</p>
+                <p><strong>End Time:</strong> {{ end_time|time:"H:i" }}</p>
+            </div>
+
+            <!-- صورة الطفل -->
+            <div class="game-image">
+                <img src="{% static kid.kid_image|cut:'main_app/static/' %}" alt="{{ kid.kid_name }}">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- العداد الزمني -->
+    <div class="countdown-container" style="text-align:center; margin-top:20px;">
+        <strong>Time Left:</strong>
+        <span class="countdown" data-endtime="{{ end_time|time:'H:i:s' }}"></span>
+    </div>
+
+</div>
+
+<script>
+function startCountdown() {
+    const timer = document.querySelector('.countdown');
+    const endTimeStr = timer.dataset.endtime;
+    const parts = endTimeStr.split(':');
+    const endTime = new Date();
+    endTime.setHours(parts[0], parts[1], parts[2] || 0, 0);
+
+    function updateTimer() {
+        const diff = endTime - new Date();
+        if (diff <= 0) {
+            timer.innerHTML = 'Time Up!';
+            return;
+        }
+        const hours = Math.floor(diff / 1000 / 60 / 60);
+        const minutes = Math.floor((diff / 1000 / 60) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+        timer.innerHTML = (hours > 0 ? hours + 'h ' : '') + minutes + 'm ' + seconds + 's';
+        setTimeout(updateTimer, 1000);
+    }
+    updateTimer();
+}
+document.addEventListener('DOMContentLoaded', startCountdown);
+</script>
+
+{% endblock %}
