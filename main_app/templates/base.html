@@ -21,7 +21,7 @@
         <li><a href="{% url 'kid_index' %}">Kids</a></li>
         <li><a href="{% url 'index' %}">Games</a></li>
 
-        <!-- زر خروج -->
+     
         <li>
           <a href="{% url 'logout' %}" 
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -32,12 +32,12 @@
           </form>
         </li>
 
-        <!-- رابط تجريبي مؤقت لصفحة nfc_generate -->
-        <li>
+    
+        <!-- <li>
           <a href="{% url 'nfc_generate' 'd561b0183a064cdfba4478c1e82f332e' '9d12345token' %}">
             Test NFC Generate
           </a>
-        </li>
+        </li> -->
 
       {% else %}
         <li><a href="{% url 'signup' %}">Sign Up</a></li>
@@ -46,16 +46,16 @@
     </ul>
   </header>
 
-  <!-- Main content -->
+
   <main class="main-container">
     {% block content %}{% endblock %}
   </main>
 
-  <!-- Balloons -->
+
   <div class="balloon balloon1">🎈</div>
   <div class="balloon balloon2">🎈</div>
 
-  <!-- Footer -->
+
   <footer class="footer">
     <p class="footer-text">
       All Rights Reserved, &copy; 2025 Kids World 
