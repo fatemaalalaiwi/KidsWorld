@@ -5,12 +5,14 @@
   font-family: Arial, sans-serif;
 }
 
+/* Game Info Card */
 .game-info {
   background: #fff3e0;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 15px;
   margin-bottom: 30px;
   text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .game-info-content {
@@ -41,36 +43,57 @@
   border-radius: 15px;
 }
 
+/* Kids Table */
 .kids-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px;
 }
 
-.kid-card {
-  background-color: #7eb78b; /* أخضر */
-  padding: 20px;
-  margin-bottom: 15px;
-  border-radius: 12px;
+.kids-list thead th {
   text-align: left;
-  box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+  padding: 10px;
+  color: #5d3a99;
+}
+
+.kids-list tbody tr.kid-card {
+  display: table-row;
+  background-color: #7eb78b; /* أخضر */
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
 }
 
+.kids-list tbody tr.kid-card td {
+  padding: 12px;
+  vertical-align: middle;
+}
+
+/* Image of kid */
+.kid-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* Hover effect */
+.kids-list tbody tr.kid-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+/* Status colors */
 .kid-card.status-2 {
   background-color: #edb68a; /* برتقالي */
 }
 
-.kid-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
-}
-
+/* Countdown */
 .countdown-container {
-  margin-top: 10px;
   font-weight: bold;
 }
 
+/* No kids text */
 .no-kids {
   font-style: italic;
   color: #555;

@@ -126,7 +126,7 @@ def dashboard(request):
         'kids_games': all_kids_games
     })
 
-# views.py
+
 
 def game_dashboard(request, game_id):
     # Store the selected game id in session
@@ -261,4 +261,13 @@ def nfc_generate(request, hash, token):
     )
 
     # ✅ Redirect to game_dashboard
-    return redirect(f'/game_dashboard/{game_id}/')
+    
+    # ⚡ الآن نرسل البيانات للصفحة الجديدة
+    context = {
+    'kid': kid,
+    'game': game,
+    'start_time': start_time,
+    'end_time': end_time,
+}
+
+    return render(request, 'nfc_generate.html', context)

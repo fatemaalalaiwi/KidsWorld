@@ -29,8 +29,8 @@ urlpatterns = [
     # ... To update the status after thime out
     path('update_kid_status/<int:kid_game_id>/', views.update_kid_status, name='update_kid_status'),
     path('nfc_generate/<str:hash>/<str:token>/', views.nfc_generate, name='nfc_generate'),
-    path('accounts/signup/' , views.signup , name='signup')
-   
+    path('accounts/signup/' , views.signup , name='signup'),
+    path('nfc_generate/<str:hash>/<str:token>/', views.nfc_generate, name='nfc_generate'),
 ]
 
 
