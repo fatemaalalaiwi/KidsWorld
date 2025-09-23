@@ -131,6 +131,7 @@ def dashboard(request):
 def game_dashboard(request, game_id):
     # Store the selected game id in session
     request.session['selected_game_id'] = game_id
+    # request.session['selected_game_id'] = 21
 
     # جميع الألعاب
     all_games = games.objects.all()
@@ -214,10 +215,10 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)   
 
-
 def nfc_generate(request, hash, token):
     # ✅ 1. Check session
     game_id = request.session.get('selected_game_id')
+    # game_id = 17
     if not game_id:
         messages.error(request, "You are not choosing the game id")
         return redirect('home')  # غيريها للصفحة المناسبة
@@ -261,13 +262,4 @@ def nfc_generate(request, hash, token):
     )
 
     # ✅ Redirect to game_dashboard
-    
-    # ⚡ الآن نرسل البيانات للصفحة الجديدة
-    context = {
-    'kid': kid,
-    'game': game,
-    'start_time': start_time,
-    'end_time': end_time,
-}
-
-    return render(request, 'nfc_generate.html', context)
+    return redirect(f'/game_dashboard/{game_id}/')
