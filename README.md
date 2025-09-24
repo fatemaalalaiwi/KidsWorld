@@ -22,7 +22,7 @@ The project is built with **Django**.
 - Python 3
 - Django 
 - PostgresSQL
-- NFC Hardware
+- NFC 
 
 ---
 
