@@ -23,7 +23,7 @@ class cards(models.Model):
         return dict(type_of_card).get(self.card_type)
 
 
-# Toy
+
 class kids(models.Model):
     kid_name = models.CharField(max_length=100)
     parent_name = models.CharField(max_length=100)
@@ -45,7 +45,7 @@ class kids(models.Model):
         return reverse('kid_detail', kwargs={'pk': self.id})
 
 
-# Games
+
 class games(models.Model):
     game_name = models.CharField(max_length=100)
     description = models.TextField(max_length=250)

@@ -48,7 +48,7 @@
 }
 
 .kid-card {
-  background-color: #7eb78b; /* أخضر */
+  background-color: #7eb78b; 
   padding: 20px;
   margin-bottom: 15px;
   border-radius: 12px;
@@ -58,7 +58,7 @@
 }
 
 .kid-card.status-2 {
-  background-color: #edb68a; /* برتقالي */
+  background-color: #edb68a; 
 }
 
 .kid-card:hover {

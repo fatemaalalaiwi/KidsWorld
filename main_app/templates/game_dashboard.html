@@ -10,7 +10,7 @@
     
     <div class="game-info">
         <div class="game-info-content">
-            <!-- text of the game  -->
+           
             <div class="game-text">
                 <p><strong>Selected Game ID:</strong> {{ request.session.selected_game_id }}</p>
                 <p><strong>Description:</strong> {{ game.description }}</p>
@@ -19,7 +19,7 @@
                 <p><strong>All Kids Number:</strong> {{ all_kids_number }}</p>
             </div>
 
-            <!-- image of the game -->
+          
             <div class="game-image">
                 <img src="{% static game.game_image|cut:'main_app/static/' %}" alt="{{ game.game_name }}">
             </div>

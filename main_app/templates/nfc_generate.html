@@ -8,11 +8,11 @@
 
     <h1 class="page-title">Game Access</h1>
 
-    <!-- بطاقة الطفل واللعبة -->
+  
     <div class="game-info">
         <div class="game-info-content">
 
-            <!-- معلومات اللعبة -->
+    
             <div class="game-text">
                 <p><strong>Game Name:</strong> {{ game.game_name }}</p>
                 <p><strong>Price:</strong> {{ game.game_price }} BD</p>
@@ -23,7 +23,7 @@
                 <p><strong>End Time:</strong> {{ end_time|time:"H:i" }}</p>
             </div>
 
-            <!-- صورة الطفل -->
+         
             <div class="game-image">
                 <img src="{% static kid.kid_image|cut:'main_app/static/' %}" alt="{{ kid.kid_name }}">
             </div>
@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <!-- العداد الزمني -->
+
     <div class="countdown-container" style="text-align:center; margin-top:20px;">
         <strong>Time Left:</strong>
         <span class="countdown" data-endtime="{{ end_time|time:'H:i:s' }}"></span>

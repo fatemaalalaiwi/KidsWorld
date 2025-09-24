@@ -133,22 +133,11 @@ def game_dashboard(request, game_id):
     request.session['selected_game_id'] = game_id
     # request.session['selected_game_id'] = 21
 
-    # جميع الألعاب
     all_games = games.objects.all()
-    
-    # اللعبة المحددة
     game = get_object_or_404(games, id=game_id)
-    
-    # جميع الأطفال المرتبطين بنفس اللعبة
     all_kids_games = kids_games.objects.filter(fk_game_id=game_id)
-    
-    # عدد الأطفال الذين يلعبون حاليًا (status 1 أو 2)
     playing_kids_number = all_kids_games.filter(status__in=[1]).count()
-    
-    # عدد جميع الأطفال المرتبطين بنفس اللعبة
     all_kids_number = all_kids_games.count()
-    
-    # الأطفال الذين يلعبون الآن (status 1 أو 2)
     kids_playing = all_kids_games.filter(status__in=[1])
 
     # الأطفال الذين تم تسجيلهم اليوم فقط
@@ -189,13 +178,11 @@ def assoc_kid(request, kid_id, game_id):
 
 @login_required
 def unassoc_kid(request, kid_id, game_id):
-    """
-    إلغاء ربط الطفل باللعبة: حذف السجل من kids_games
-    """
+   
     kid_game = get_object_or_404(kids_games, fk_kid_id=kid_id, fk_game_id=game_id)
     kid_game.delete()
     
-    # return redirect('game_detail', game_id=game_id)
+   
     return redirect('home')
 
 
@@ -216,38 +203,38 @@ def signup(request):
   return render(request, 'registration/signup.html', context)   
 
 def nfc_generate(request, hash, token):
-    # ✅ 1. Check session
+    #  1. Check session
     game_id = request.session.get('selected_game_id')
     # game_id = 17
     if not game_id:
         messages.error(request, "You are not choosing the game id")
-        return redirect('home')  # غيريها للصفحة المناسبة
+        return redirect('home') 
 
-    # ✅ 2. Check kid availability
+    # 2. Check kid availability
     kid = kids.objects.filter(hash=hash, token=token).select_related('fk_card_id').first()
     if not kid:
         messages.error(request, "This user is not available in our website")
-        return redirect('home')  # غيريها للصفحة المناسبة
+        return redirect('home')  
 
-    # ✅ 3. Fetch kid info + card info
+    #  3. Fetch kid info + card info
     kid_id = kid.id
     kid_credit = kid.credit
     card_duration_time = kid.fk_card_id.card_duration_time if kid.fk_card_id else 0
 
-    # ✅ 4. Check game price
+    # 4. Check game price
     game = get_object_or_404(games, id=game_id)
     game_price = game.game_price
 
-    # ✅ 5. Balance validation
+    # 5. Balance validation
     if kid_credit < game_price:
         messages.error(request, "You don't have balance to play this game, please recharge it.")
-        return redirect('home')  # غيريها للصفحة المناسبة
+        return redirect('home') 
 
-    # ✅ Deduct balance
+    #  Deduct balance
     kid.credit -= game_price
     kid.save()
 
-    # ✅ Insert into kids_games
+    # Insert into kids_games
     bahrain_tz = pytz.timezone("Asia/Bahrain")
     start_time = datetime.now(bahrain_tz).time()
     end_time = (datetime.combine(datetime.today(), start_time) + timedelta(minutes=card_duration_time)).time()
@@ -261,5 +248,5 @@ def nfc_generate(request, hash, token):
         user=request.user if request.user.is_authenticated else None
     )
 
-    # ✅ Redirect to game_dashboard
+    # Redirect to game_dashboard
     return redirect(f'/game_dashboard/{game_id}/')

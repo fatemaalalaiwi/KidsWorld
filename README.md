@@ -25,6 +25,20 @@ The project is built with **Django**.
 
 ---
 
+ ## Trello 
+ ![Trello](screenshots/trello.png)
+
+
+
+You can view the detailed Trello below or click [here](https://trello.com/b/safTSAiI/kidsworld) to see the full diagram online.
+
+
+ ## ERD
+
+![ERD Diagram](screenshots/erd.png)
+
+You can view the detailed ERD image below or click [here](https://lucid.app/lucidchart/cea457d1-6209-42f5-be9c-3020f300bfd9/edit?invitationId=inv_218bbeac-2239-4dc2-8eac-ce0856f84ea8&page=0_0#) to see the full diagram online.
+
 
 
 ## 📸 Screenshots
@@ -50,3 +64,6 @@ The project is built with **Django**.
 
 ### 📊 Dashboard
 <img src="screenshots/dashboard.png" alt="Dashboard" width="300"/>
+
+
+
